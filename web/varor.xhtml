@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition template="template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    
+    <ui:define name="windowTitle">
+        Varor
+    </ui:define>
+    <ui:define name="headingText">
+        Tryck på Lägg till för att lägga till varor till kundvagnen
+    </ui:define>
+    <ui:define name="content">
+        <h:form class="pure-form pure-form-stacked">
+            <h:selectOneMenu value="Kategori" onchange="submit()" 
+                             valueChangeListener="#{varorDB.kategorierLista}">
+                <f:selectItem itemLabel="kategori" itemValue="0"/>
+                <f:selectItems value="#{varorDB.kategorier}" var="k"
+                               itemLabel="#{k.namn}" itemValue="#{k.id}"/>
+            </h:selectOneMenu>
+        </h:form>
+        
+        <h:form id="formtabell" class="pure-form pure-form-stacked">
+            <h:dataTable id="minTabell" value="#{varorDB.all}" var="varor" 
+                         class="pure-table"
+                         style="width: 100%"
+                         rowClasses="pure-table-odd,pure-table">
+                <h:column>
+                    <f:facet name="header">Namn</f:facet>
+                    <h:outputText value="#{varor.namn}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Antal</f:facet>
+                    <h:outputText value="#{varor.pris}"></h:outputText>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Lägg till</f:facet>
+                    <h:commandButton value="Lägg till" type="submit" action="#{varorDB.addVaraToKundvagn(varor)}" class="button-success pure-button">
+                        <f:ajax render="@form" execute="@form"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="windowTitle">
+        Home
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Welcome to a shopping site</h1>
+        <h:form class="pure-form pure-form-stacked" style="text-align: left;">
+            Förnamn: <br></br>
+            <h:inputText id="fNamn" value="#{user.fNamn}" required="true"></h:inputText>
+            <br></br>
+            Efternamn: <br></br>
+            <h:inputText id="eNamn" value="#{user.eNamn}" required="true"></h:inputText>
+            <br></br>
+            eMail: <br></br>
+            <h:inputText id="eMail" value="#{user.eMail}" required="true">
+            <!--http://www.mkyong.com/jsf2/primefaces/primefaces-jsf-email-validator-example/-->
+            <f:validateRegex
+		pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+            </h:inputText>
+            <br></br>
+            Lösenord:  <br></br>
+            <h:inputSecret id="password" value="#{user.password}" required="true">
+            </h:inputSecret>
+            <br></br>
+            <h:commandButton value="Submit" type="submit" action="#{varorDB.newUser(user)}">
+                 <f:ajax render="@all" execute="@form"/>
+            </h:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>

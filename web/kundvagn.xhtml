@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="windowTitle">
+        Admin
+    </ui:define>
+    <ui:define name="headingText">
+        Din kundvagn, du kan ändra antalet på dinna varor
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="formtabell" class="pure-form pure-form-stacked">
+            <h:dataTable id="minTabell" value="#{varorDB.kundvagn}" var="varor" 
+                         class="pure-table"
+                         style="width: 100%"
+                         rowClasses="pure-table-odd,pure-table">
+                <h:column>
+                    <f:facet name="header">Namn</f:facet>
+                    <h:outputText value="#{varor.namn}" ></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Antal</f:facet>
+                    <h:inputText value="#{varor.antal}" rendered="#{varor.editable}" required="true">
+                        <f:convertNumber integerOnly="true"/>
+                    </h:inputText>
+                    <h:outputText value="#{varor.antal}" rendered="#{not varor.editable}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Ta bort</f:facet>
+                    <h:commandLink id="tabort" value="Ta bort" action="#{varorDB.deleteAction(varor)}" class="button-error pure-button">
+                        <f:ajax render="@form" execute="@form"/>
+                    </h:commandLink>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Editera</f:facet>
+                    <h:commandLink id="editera" value="Editera" action="#{varorDB.setEditable(varor)}" class="button-secondary pure-button">
+                        <f:ajax render="@form" execute="@form"/>
+                    </h:commandLink>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Updatera</f:facet>
+                    <h:commandButton value="Submit" type="submit" action="#{varorDB.updateVara(varorDB.kundvagn)}" class="button-success pure-button">
+                        <f:ajax render="@form" execute="@form"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+            
+            <f:facet name="header">Betala</f:facet>
+            <h:commandButton value="Submit" type="submit" action="#{varorDB.sendKundvagn()}" class="button-success pure-button">
+                <f:ajax render="@form" execute="@form"/>
+            </h:commandButton>
+            </h:form>
+    </ui:define>
+</ui:composition>

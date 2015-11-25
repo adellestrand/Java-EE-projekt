@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="windowTitle">
+        Admin
+    </ui:define>
+    <ui:define name="headingText">
+        Din kundvagn, du kan ändra antalet på dinna varor
+    </ui:define>
+    <ui:define name="content">
+        <script async="async" 
+                src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=jjavaiskolan-facilitator@gmail.com"
+                data-button="buynow"
+                data-name="#{varorDB.orderName}"
+                data-quantity="1"
+                data-amount="#{varorDB.sum}"
+                data-currency="SEK"
+                data-callback="http://localhost:8080/ShoppingSite.xhtml"
+                data-env="sandbox"
+        ></script>
+
+    </ui:define>
+</ui:composition>
